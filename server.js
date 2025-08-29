@@ -50,7 +50,6 @@ function processData(data) {
 
 // Helper function to create concatenated string with alternating caps
 function createConcatString(alphabets) {
-    // Extract all individual characters from alphabets
     let allChars = [];
     alphabets.forEach(item => {
         allChars.push(...item.split(''));
@@ -63,9 +62,9 @@ function createConcatString(alphabets) {
     let result = '';
     allChars.forEach((char, index) => {
         if (index % 2 === 0) {
-            result += char.toUpperCase(); // First, third, fifth... chars are uppercase
+            result += char.toUpperCase(); 
         } else {
-            result += char.toLowerCase(); // Second, fourth, sixth... chars are lowercase
+            result += char.toLowerCase(); 
         }
     });
     
@@ -94,9 +93,9 @@ app.post('/bfhl', (req, res) => {
         // Response object
         const response = {
             is_success: true,
-            user_id: "john_doe_17091999", // Replace with your actual details
-            email: "john@xyz.com", // Replace with your actual email
-            roll_number: "ABCD123", // Replace with your actual roll number
+            user_id: "riya22BCE10847", 
+            email: "riyabenbhaveshkumarpatel2022@vitbhopal.ac.in", 
+            roll_number: "22BCE10847",
             odd_numbers: processed.oddNumbers,
             even_numbers: processed.evenNumbers,
             alphabets: processed.alphabets,
