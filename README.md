@@ -64,14 +64,15 @@ A REST API built for the VIT Full Stack Challenge that processes an array of mix
 ## 🧪 Testing with Postman
 
 I have thoroughly tested this API using **Postman** to ensure all requirements are met correctly.
-- Test Case 1: Mixed Data Types
-![App Screenshot](assets/Testcase 1.png)
 
-- Test Case 2: Multiple Special Characters
-![App Screenshot](assets/Testcase 2.png)
+- **Test Case 1: Mixed Data Types**  
+  ![App Screenshot](assets/Testcase%201.png)
 
-- Test Case 3: Only Alphabetic Strings
-![App Screenshot](assets/Testcase 3.png)
+- **Test Case 2: Multiple Special Characters**  
+  ![App Screenshot](assets/Testcase%202.png)
+
+- **Test Case 3: Only Alphabetic Strings**  
+  ![App Screenshot](assets/Testcase%203.png)
 
 ## 🔧 Installation & Local Development
 
@@ -153,4 +154,5 @@ curl -X POST https://your-vercel-url.vercel.app/bfhl \
 ---
 
 **Note**: This API has been thoroughly tested using Postman to ensure compliance with all VIT Full Stack Challenge requirements. All test cases pass successfully with the correct response format and data processing logic.
+
 
