@@ -2,19 +2,14 @@
 
 A REST API built for the VIT Full Stack Challenge that processes an array of mixed data types and returns categorized results with specific formatting requirements.
 
-## 🚀 Live API
-
-- **Deployed URL**: 
-- **Endpoint**: `POST /bfhl`
-
 ## 📋 Features
 
-- ✅ **Data Categorization**: Separates numbers (even/odd), alphabets, and special characters
-- ✅ **Number Processing**: Calculates sum of all numeric values
-- ✅ **String Manipulation**: Creates concatenated string with alternating caps in reverse order
-- ✅ **Format Compliance**: Returns all numbers as strings as per requirements
-- ✅ **Error Handling**: Graceful error handling with appropriate HTTP status codes
-- ✅ **CORS Support**: Enabled for frontend integration
+- **Data Categorization**: Separates numbers (even/odd), alphabets, and special characters
+- **Number Processing**: Calculates sum of all numeric values
+- **String Manipulation**: Creates concatenated string with alternating caps in reverse order
+- **Format Compliance**: Returns all numbers as strings as per requirements
+- **Error Handling**: Graceful error handling with appropriate HTTP status codes
+- **CORS Support**: Enabled for frontend integration
 
 ## 🛠 Technology Stack
 
@@ -143,16 +138,3 @@ vercel --prod
 4. Add raw JSON body: `{"data": ["a","1","334","4","R", "$"]}`
 5. Click **Send**
 6. Verify response matches expected format
-
-### Using curl:
-```bash
-curl -X POST https://your-vercel-url.vercel.app/bfhl \
-  -H "Content-Type: application/json" \
-  -d '{"data": ["a","1","334","4","R", "$"]}'
-```
-
----
-
-**Note**: This API has been thoroughly tested using Postman to ensure compliance with all VIT Full Stack Challenge requirements. All test cases pass successfully with the correct response format and data processing logic.
-
-
