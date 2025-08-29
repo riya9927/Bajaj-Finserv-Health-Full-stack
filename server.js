@@ -59,13 +59,13 @@ function createConcatString(alphabets) {
     // Reverse the order
     allChars.reverse();
     
-    // Apply alternating caps
+    // Apply alternating caps (first char uppercase, second lowercase, etc.)
     let result = '';
     allChars.forEach((char, index) => {
         if (index % 2 === 0) {
-            result += char.toLowerCase();
+            result += char.toUpperCase(); // First, third, fifth... chars are uppercase
         } else {
-            result += char.toUpperCase();
+            result += char.toLowerCase(); // Second, fourth, sixth... chars are lowercase
         }
     });
     
@@ -91,12 +91,12 @@ app.post('/bfhl', (req, res) => {
         // Create concatenated string
         const concatString = createConcatString(processed.alphabets);
         
-        // ⚠️ IMPORTANT: UPDATE THESE VALUES WITH YOUR DETAILS
+        // Response object
         const response = {
             is_success: true,
-            user_id: "riya9927", // ← CHANGE THIS: your_name_ddmmyyyy
-            email: "riyabpatel1102@gmail.com", // ← CHANGE THIS: your actual email
-            roll_number: "22BCE10847", // ← CHANGE THIS: your roll number
+            user_id: "john_doe_17091999", // Replace with your actual details
+            email: "john@xyz.com", // Replace with your actual email
+            roll_number: "ABCD123", // Replace with your actual roll number
             odd_numbers: processed.oddNumbers,
             even_numbers: processed.evenNumbers,
             alphabets: processed.alphabets,
@@ -131,6 +131,23 @@ app.get('/', (req, res) => {
             post: "/bfhl",
             get: "/bfhl"
         }
+    });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({
+        is_success: false,
+        error: "Something went wrong!"
+    });
+});
+
+// 404 handler
+app.use('*', (req, res) => {
+    res.status(404).json({
+        is_success: false,
+        error: "Route not found"
     });
 });
 
