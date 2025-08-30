@@ -50,6 +50,7 @@ function processData(data) {
 
 // Helper function to create concatenated string with alternating caps
 function createConcatString(alphabets) {
+    // Extract all individual characters from alphabets
     let allChars = [];
     alphabets.forEach(item => {
         allChars.push(...item.split(''));
@@ -58,7 +59,6 @@ function createConcatString(alphabets) {
     // Reverse the order
     allChars.reverse();
     
-    // Apply alternating caps (first char uppercase, second lowercase, etc.)
     let result = '';
     allChars.forEach((char, index) => {
         if (index % 2 === 0) {
@@ -95,7 +95,7 @@ app.post('/bfhl', (req, res) => {
             is_success: true,
             user_id: "riya22BCE10847", 
             email: "riyabenbhaveshkumarpatel2022@vitbhopal.ac.in", 
-            roll_number: "22BCE10847",
+            roll_number: "22BCE10847", 
             odd_numbers: processed.oddNumbers,
             even_numbers: processed.evenNumbers,
             alphabets: processed.alphabets,
@@ -122,15 +122,163 @@ app.get('/bfhl', (req, res) => {
     });
 });
 
-// Health check endpoint
+// HTML test page for user input
 app.get('/', (req, res) => {
-    res.json({
-        message: "BFHL API is running",
-        endpoints: {
-            post: "/bfhl",
-            get: "/bfhl"
-        }
-    });
+    const testPageHTML = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BFHL API Test Page</title>
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { 
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                padding: 20px;
+            }
+            .container { 
+                max-width: 1000px; 
+                margin: 0 auto; 
+                background: white; 
+                padding: 30px; 
+                border-radius: 15px; 
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            }
+            h1 { color: #333; text-align: center; margin-bottom: 30px; font-size: 2.5em; }
+            .api-info { background: #e8f4fd; padding: 20px; border-radius: 8px; margin-bottom: 25px; }
+            .input-section, .output-section { margin: 25px 0; }
+            label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+            textarea { 
+                width: 100%; 
+                padding: 15px; 
+                border: 2px solid #ddd; 
+                border-radius: 8px; 
+                font-family: 'Courier New', monospace; 
+                font-size: 14px;
+                resize: vertical;
+            }
+            button { 
+                background: linear-gradient(45deg, #667eea, #764ba2); 
+                color: white; 
+                padding: 15px 30px; 
+                border: none; 
+                border-radius: 8px; 
+                font-size: 16px; 
+                cursor: pointer; 
+                margin: 10px 0;
+                transition: transform 0.2s;
+            }
+            button:hover { transform: translateY(-2px); }
+            .response { 
+                background: #f8f9fa; 
+                padding: 20px; 
+                border-radius: 8px; 
+                border-left: 4px solid #28a745;
+                white-space: pre-wrap;
+                font-family: 'Courier New', monospace;
+            }
+            .error { border-left-color: #dc3545; background: #fff5f5; }
+            .examples { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0; }
+            .example-btn { 
+                background: #6c757d; 
+                padding: 8px 15px; 
+                font-size: 12px;
+            }
+            .loader { display: none; text-align: center; margin: 10px 0; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>BFHL API Test Interface</h1>
+
+            <div class="input-section">
+                <label for="jsonInput">Enter JSON Request (modify the data array):</label>
+                <textarea id="jsonInput" rows="6" placeholder='{"data": ["a","1","334","4","R", "$"]}'>{
+  "data": ["a","1","334","4","R", "$"]
+}</textarea>
+                
+                <div class="examples">
+                    <button class="example-btn" onclick="loadExample('A')">Example A</button>
+                    <button class="example-btn" onclick="loadExample('B')">Example B</button>
+                    <button class="example-btn" onclick="loadExample('C')">Example C</button>
+                    <button class="example-btn" onclick="clearInput()">Clear</button>
+                </div>
+                
+                <button onclick="testAPI()">Test API</button>
+                <div class="loader" id="loader">Processing...</div>
+            </div>
+
+            <div class="output-section">
+                <label>API Response:</label>
+                <div id="response" class="response">Click "Test API" to see the response...</div>
+            </div>
+        </div>
+
+        <script>
+            const examples = {
+                'A': '{"data": ["a","1","334","4","R", "$"]}',
+                'B': '{"data": ["2","a", "y", "4", "&", "-", "*", "5","92","b"]}',
+                'C': '{"data": ["A","ABcD","DOE"]}'
+            };
+
+            function loadExample(type) {
+                document.getElementById('jsonInput').value = JSON.stringify(JSON.parse(examples[type]), null, 2);
+            }
+
+            function clearInput() {
+                document.getElementById('jsonInput').value = '';
+            }
+
+            async function testAPI() {
+                const inputElement = document.getElementById('jsonInput');
+                const responseElement = document.getElementById('response');
+                const loader = document.getElementById('loader');
+                
+                try {
+                    // Show loader
+                    loader.style.display = 'block';
+                    responseElement.className = 'response';
+                    responseElement.textContent = 'Processing...';
+                    
+                    // Parse input JSON
+                    const inputData = JSON.parse(inputElement.value);
+                    
+                    // Make API call
+                    const response = await fetch('/bfhl', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(inputData)
+                    });
+                    
+                    const result = await response.json();
+                    
+                    // Display formatted response
+                    responseElement.textContent = JSON.stringify(result, null, 2);
+                    responseElement.className = 'response';
+                    
+                } catch (error) {
+                    responseElement.textContent = 'Error: ' + error.message + '\\n\\nPlease check your JSON format.';
+                    responseElement.className = 'response error';
+                } finally {
+                    loader.style.display = 'none';
+                }
+            }
+
+            // Load Example A by default
+            window.onload = function() {
+                loadExample('A');
+            };
+        </script>
+    </body>
+    </html>
+    `;
+    
+    res.send(testPageHTML);
 });
 
 // Error handling middleware
